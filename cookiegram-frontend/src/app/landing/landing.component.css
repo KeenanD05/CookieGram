@@ -1,0 +1,193 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:host {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* 🌈 Background and layout */
+.landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(180deg, #fffaf6 0%, #ffe4cc 50%, #ffd7a8 100%);
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(100, 60, 20, 0.2);
+  padding: 4rem 2rem 5rem;
+  margin: 3rem auto;
+  width: 90%;
+  color: #3b2311;
+}
+
+/* 🍪 Main heading */
+.landing h1 {
+  font-size: 3.4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #2c180c;
+  letter-spacing: -1px;
+  text-shadow: 0 3px 5px rgba(120, 60, 10, 0.15);
+}
+
+/* Subtext */
+.landing p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: #6b3c1f;
+  line-height: 1.5;
+  max-width: 700px;
+}
+
+/* Buttons */
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 0.8rem;
+}
+
+.cta {
+  all: unset;
+  background: linear-gradient(90deg, #ffb56b, #ff9861);
+  color: #2c180c;
+  font-weight: 700;
+  padding: 1rem 2.5rem;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(120, 60, 10, 0.25);
+  transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+  text-align: center;
+}
+
+.cta:hover {
+  background: linear-gradient(90deg, #ff9861, #e5743d);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(120, 60, 10, 0.35);
+}
+
+/* Link */
+.see-link {
+  display: block;
+  color: #6b4226;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: color 0.25s;
+}
+.see-link:hover {
+  color: #2c180c;
+}
+
+/* 🌟 Promotions Section */
+.promos {
+  margin: 4rem auto;
+  max-width: 1100px;
+  text-align: center;
+  color: #3b2311;
+}
+
+.promos h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1.8rem;
+  font-weight: 700;
+  color: #2c180c;
+}
+
+.promo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+}
+
+.promo-card {
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  width: 100%;
+  max-width: 280px;
+  padding: 1.6rem;
+  text-align: left;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.promo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.badge {
+  background: #ffb56b;
+  color: #3b2311;
+  font-weight: 700;
+  padding: 0.3rem 0.8rem;
+  border-radius: 10px;
+  display: inline-block;
+  font-size: 0.85rem;
+  margin-bottom: 0.6rem;
+}
+
+.promo-card h3 {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #2c180c;
+}
+
+.promo-card p {
+  font-size: 0.95rem;
+  color: #6b4226;
+  margin: 0.5rem 0 0.8rem;
+}
+
+.price {
+  font-weight: 700;
+  color: #e86c3a;
+  font-size: 1rem;
+}
+
+/* 🧁 About Section */
+.about {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #fff7f0, #ffe6d5);
+  padding: 3rem 2rem;
+  margin-top: 4rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(100, 60, 20, 0.15);
+  gap: 2rem;
+}
+
+.about-content {
+  flex: 1;
+  min-width: 300px;
+  max-width: 500px;
+}
+
+.about-content h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c180c;
+  margin-bottom: 1rem;
+}
+
+.about-content p {
+  color: #6b3c1f;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.about-image img {
+  width: 360px;
+  border-radius: 18px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-image img:hover {
+  transform: scale(1.04);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+}

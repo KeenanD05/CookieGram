@@ -1,0 +1,93 @@
+<<<<<<< HEAD
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# Miscellaneous
+/.angular/cache
+.sass-cache/
+/connect.lock
+=======
+# ────────────────
+# FRONTEND (Angular)
+# ────────────────
+cookiegram-frontend/node_modules
+cookiegram-frontend/dist
+cookiegram-frontend/.angular/cache
+cookiegram-frontend/tmp
+cookiegram-frontend/out-tsc
+cookiegram-frontend/bazel-out
+cookiegram-frontend/npm-debug.log
+cookiegram-frontend/yarn-error.log
+
+# ────────────────
+# BACKEND (Spring Boot)
+# ────────────────
+cookiegram-backend/target
+cookiegram-backend/.classpath
+cookiegram-backend/.project
+cookiegram-backend/.settings/
+
+# ────────────────
+# IDEs & Editors
+# ────────────────
+.idea/
+.vscode/
+*.sublime-workspace
+*.launch
+.c9/
+
+# ────────────────
+# Logs & Coverage
+# ────────────────
+*.log
+.sass-cache/
+.connect.lock
+>>>>>>> f814572 (Re-added frontend as normal folder (removed submodule reference))
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+
+<<<<<<< HEAD
+# System files
+.DS_Store
+Thumbs.db
+=======
+# ────────────────
+# System files
+# ────────────────
+.DS_Store
+Thumbs.db
+
+# ────────────────
+# Miscellaneous
+# ────────────────
+.history/
+>>>>>>> f814572 (Re-added frontend as normal folder (removed submodule reference))

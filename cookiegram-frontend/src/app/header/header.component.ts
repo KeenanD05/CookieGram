@@ -25,9 +25,9 @@ import { RouterLink } from '@angular/router';
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(to right, #fff6ef, #ffe2ca);
+  background: linear-gradient(to right, #fdf4ecff, #fdf4ecff);
   padding: 1.2rem 3rem;
-  box-shadow: 0 4px 12px rgba(139, 86, 36, 0.15);
+  box-shadow:  12px rgba(139, 86, 36, 0.15);
 }
 
 .brand {

@@ -9,9 +9,12 @@ export const roleGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
   const allowed: string[] = route.data['roles'] ?? [];
   const role = auth.getRole();
 
-  if (role && allowed.includes(role)) return true;
+  console.log('RoleGuard check → allowed:', allowed, 'stored:', role);
 
-  // Not allowed → kick back to landing
+  if (role && allowed.map(r => r.toUpperCase()).includes(role.toUpperCase())) {
+    return true;
+  }
+
   router.navigateByUrl('/');
   return false;
 };

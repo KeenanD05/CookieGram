@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
     <div class="row">
       <div class="col">
         <div class="brand">🍪 CookieGram</div>
-        <p>Freshly baked joy, delivered with a smile.</p>
+        <p>Delivering Joy. One Cookie at a time...</p>
       </div>
       <div class="col">
         <div class="muted">© {{year}} CookieGram • Made with love & butter</div>

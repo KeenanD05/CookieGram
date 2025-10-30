@@ -18,23 +18,24 @@ export const routes: Routes = [
     children: [
       { path: '', component: LandingComponent }, // default page
       {
-        path: 'customer',
-        component: CustomerComponent,
-        canActivate: [roleGuard],
-        data: { roles: ['CUSTOMER'] }
-      },
-      {
-        path: 'employee',
-        component: EmployeeComponent,
-        canActivate: [roleGuard],
-        data: { roles: ['EMPLOYEE'] }
-      },
-      {
-        path: 'admin',
-        component: AdminComponent,
-        canActivate: [roleGuard],
-        data: { roles: ['ADMIN'] }
-      },
+  path: 'customer',
+  component: CustomerComponent,
+  canActivate: [roleGuard],
+  data: { roles: ['ROLE_USER'] }
+},
+  {
+    path: 'employee',
+    component: EmployeeComponent,
+    canActivate: [roleGuard],
+    data: { roles: ['ROLE_STAFF', 'ROLE_EMPLOYEE'] }, // ✅ add this
+  },
+{
+  path: 'admin',
+  component: AdminComponent,
+  canActivate: [roleGuard],
+  data: { roles: ['ROLE_ADMIN'] }
+}
+
     ]
   },
 

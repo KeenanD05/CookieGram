@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        .payment-form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        #card-element {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 4px;
+            background: white;
+        }
+        #card-errors {
+            color: #dc3545;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-form">
+        <h2>Complete Your Payment</h2>
+        <div class="form-group">
+            <label for="amount">Amount (CAD)</label>
+            <input type="number" id="amount" name="amount" value="10.00" step="0.01" min="0.50" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="name">Name on Card</label>
+            <input type="text" id="name" name="name" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Card Details</label>
+            <div id="card-element">
+                <!-- A Stripe Element will be inserted here. -->
+            </div>
+            <!-- Used to display form errors. -->
+            <div id="card-errors" role="alert"></div>
+        </div>
+        <button id="submit-payment">Pay Now</button>
+        <div id="payment-status"></div>
+    </div>
+
+    <script>
+        // Set your publishable key
+        const stripe = Stripe('${stripePublicKey}');
+        const elements = stripe.elements();
+        
+        // Create an instance of the card Element
+        const card = elements.create('card', {
+            style: {
+                base: {
+                    fontSize: '16px',
+                    color: '#32325d',
+                },
+            },
+        });
+
+        // Add an instance of the card Element into the `card-element` div
+        card.mount('#card-element');
+
+        // Handle real-time validation errors from the card Element
+        card.addEventListener('change', function(event) {
+            const displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
+            }
+        });
+
+        // Handle form submission
+        const form = document.querySelector('.payment-form');
+        const submitButton = document.getElementById('submit-payment');
+        
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            // Disable the submit button to prevent multiple submissions
+            submitButton.disabled = true;
+            document.getElementById('payment-status').textContent = 'Processing payment...';
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const amount = document.getElementById('amount').value;
+            
+            try {
+                // 1. Create a payment method
+                const { paymentMethod, error: paymentMethodError } = await stripe.createPaymentMethod({
+                    type: 'card',
+                    card: card,
+                    billing_details: {
+                        name: name,
+                        email: email,
+                    },
+                });
+
+                if (paymentMethodError) {
+                    throw paymentMethodError;
+                }
+
+                // 2. Create and confirm the payment intent
+                const response = await fetch('/payments/create-payment-intent', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        amount: amount,
+                        currency: 'cad',
+                        description: 'Payment for services',
+                        customerEmail: email,
+                        paymentMethodId: paymentMethod.id,
+                        successUrl: window.location.origin + '/payments/success?session_id={CHECKOUT_SESSION_ID}',
+                        cancelUrl: window.location.origin + '/payments/cancel'
+                    })
+                });
+                
+                const paymentIntent = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(paymentIntent.message || 'Failed to create payment intent');
+                }
+
+                // 3. Confirm the payment
+                const { error, paymentIntent: confirmedPayment } = await stripe.confirmCardPayment(
+                    paymentIntent.clientSecret,
+                    {
+                        payment_method: paymentMethod.id
+                    }
+                );
+
+                if (error) {
+                    throw error;
+                }
+
+                // 4. Show success message
+                document.getElementById('payment-status').textContent = 'Payment successful! Redirecting...';
+                
+                // 5. Redirect to success page
+                window.location.href = `/payments/success?payment_intent=${paymentIntent.paymentIntentId}`;
+                
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('payment-status').textContent = error.message || 'Payment failed. Please try again.';
+                submitButton.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

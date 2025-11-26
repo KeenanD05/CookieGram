@@ -1,0 +1,99 @@
+<section class="checkout-page">
+  <!-- Page Title -->
+  <h1>Checkout</h1>
+
+  <!-- CART ITEMS -->
+  <ul class="cart-list">
+    <li *ngFor="let it of items">
+      <div class="item-row">
+        <span
+          ><strong>{{ it.quantity }}×</strong> CookieGram</span
+        >
+
+        <div class="item-details">
+          <span *ngIf="it.icing">Icing: {{ it.icing }}</span>
+          <span *ngIf="it.message"> | "{{ it.message }}"</span>
+        </div>
+
+        <span class="item-price">{{ it.price * it.quantity | currency }}</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ORDER SUMMARY -->
+  <div class="summary-box">
+    <h2>Summary</h2>
+    <p>
+      Subtotal: <strong>{{ subtotal | currency }}</strong>
+    </p>
+    <p>
+      Shipping: <strong>{{ shipping | currency }}</strong>
+    </p>
+    <p>
+      Tax: <strong>{{ tax | currency }}</strong>
+    </p>
+    <h3>
+      Total: <strong>{{ total | currency }}</strong>
+    </h3>
+  </div>
+
+  <!-- DELIVERY INFORMATION -->
+  <div class="info-box">
+    <h2>Delivery Info</h2>
+
+    <input type="text" placeholder="Full Name" [(ngModel)]="name" required />
+
+    <input
+      type="email"
+      placeholder="Email Address"
+      [(ngModel)]="email"
+      required
+    />
+
+    <textarea
+      placeholder="Delivery Address"
+      [(ngModel)]="address"
+      rows="3"
+      required
+    ></textarea>
+
+    <!-- NEW: Delivery Date Picker -->
+    <label for="deliveryDate"
+      >Delivery Date (Required - Must be at least tomorrow)</label
+    >
+    <input
+      id="deliveryDate"
+      type="date"
+      [(ngModel)]="deliveryDate"
+      [min]="minDate"
+      required
+    />
+    <p class="error" *ngIf="dateError">{{ dateError }}</p>
+  </div>
+
+  <!-- STRIPE CARD ELEMENT -->
+  <div class="payment-box">
+    <h2>Card Details</h2>
+
+    <!-- Stripe injects card field here -->
+    <div id="card-element" class="card-element"></div>
+
+    <!-- Error Messages -->
+    <p class="error" *ngIf="cardError">{{ cardError }}</p>
+    <p class="error" *ngIf="formError">{{ formError }}</p>
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="actions">
+    <button class="back" (click)="back()">← Back</button>
+
+    <button
+      class="checkout"
+      (click)="checkout()"
+      [disabled]="isPaying"
+      id="payButton"
+    >
+      {{ isPaying ? "Processing..." : "Pay Now" }}
+    </button>
+  </div>
+</section>

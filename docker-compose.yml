@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # Backend Service
+  backend:
+    build:
+      context: ./cookiegrm-backend
+      dockerfile: Dockerfile
+    container_name: cookiegram-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:testdb
+      - SPRING_DATASOURCE_DRIVERCLASSNAME=org.h2.Driver
+      - SPRING_DATASOURCE_USERNAME=sa
+      - SPRING_DATASOURCE_PASSWORD=password
+      - EMAIL_APP_PASSWORD=${EMAIL_APP_PASSWORD}
+      - STRIPE_API_KEY=${STRIPE_API_KEY}
+      - STRIPE_PUBLIC_KEY=${STRIPE_PUBLIC_KEY}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
+      - STRIPE_CURRENCY=cad
+    networks:
+      - cookiegram-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/test/send-email?to=test@test.com&name=test"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend Service
+  frontend:
+    build:
+      context: ./cookiegram-frontend
+      dockerfile: Dockerfile
+    container_name: cookiegram-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - cookiegram-network
+    environment:
+      - NODE_ENV=production
+
+networks:
+  cookiegram-network:
+    driver: bridge

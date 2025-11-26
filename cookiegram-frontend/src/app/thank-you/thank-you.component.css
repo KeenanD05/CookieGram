@@ -1,0 +1,28 @@
+.thanks {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #3b2311;
+}
+
+.msg-box {
+  margin: 1.5rem auto 2.5rem;
+  padding: 1.2rem;
+  max-width: 500px;
+  border-radius: 12px;
+  border: 1px solid #e6c9a7;
+  background: #fffaf4;
+}
+
+.home-btn {
+  background: #a56a3c;
+  color: #fff;
+  border: none;
+  padding: 0.9rem 1.6rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.home-btn:hover {
+  background: #8d562d;
+}

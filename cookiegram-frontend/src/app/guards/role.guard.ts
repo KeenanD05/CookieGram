@@ -1,0 +1,20 @@
+import { inject } from '@angular/core';
+import { CanActivateFn, Router, ActivatedRouteSnapshot } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+
+export const roleGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
+  const router = inject(Router);
+  const auth = inject(AuthService);
+
+  const allowed: string[] = route.data['roles'] ?? [];
+  const role = auth.getRole();
+
+  console.log('RoleGuard check → allowed:', allowed, 'stored:', role);
+
+  if (role && allowed.map(r => r.toUpperCase()).includes(role.toUpperCase())) {
+    return true;
+  }
+
+  router.navigateByUrl('/');
+  return false;
+};

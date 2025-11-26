@@ -1,0 +1,30 @@
+<section class="signup-page">
+
+  <h1>Create Account</h1>
+
+  <form (ngSubmit)="submit()">
+    
+    <input type="text" placeholder="Username" [(ngModel)]="username" name="username" />
+
+    <input type="text" placeholder="First Name" [(ngModel)]="firstName" name="firstName" />
+
+    <input type="text" placeholder="Last Name" [(ngModel)]="lastName" name="lastName" />
+
+    <input type="email" placeholder="Email" [(ngModel)]="email" name="email" />
+
+    <input type="password" placeholder="Password" [(ngModel)]="password" name="password" />
+
+    <input type="text" placeholder="Mobile Number" [(ngModel)]="mobileNumber" name="mobileNumber" />
+
+    <button type="submit">Create Account</button>
+  </form>
+
+  <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <div class="nav-links">
+    <a routerLink="/login" class="back-login">Back to Login</a>
+    <a routerLink="/" class="back-home">Home</a>
+  </div>
+
+</section>

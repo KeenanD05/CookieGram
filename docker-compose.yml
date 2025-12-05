@@ -26,7 +26,6 @@ services:
   # 2. BACKEND (Spring Boot)
   # ---------------------------------
   backend:
-    # 👇 CHANGE THIS to your Docker Hub username
     image: keenusheridan/cookiegram-backend:latest 
     container_name: cookiegram-backend
     restart: always
@@ -55,9 +54,7 @@ services:
   # 3. FRONTEND (Angular + Nginx)
   # ---------------------------------
   frontend:
-    build: ./cookiegram-frontendSprint3
-    # 👇 CHANGE THIS to your Docker Hub username
-    #image: keenusheridan/cookiegram-frontend:latest
+    image: keenusheridan/cookiegram-frontend:latest
     container_name: cookiegram-frontend
     restart: always
     ports:

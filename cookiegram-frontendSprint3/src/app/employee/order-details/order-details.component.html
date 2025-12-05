@@ -1,0 +1,106 @@
+<section class="details-page">
+  <button class="back-btn" (click)="goBack()">← Back</button>
+
+  <h1>Order Details</h1>
+  <p class="subtitle">Full order information and status updates</p>
+
+  <p *ngIf="loading" class="loading">Loading order...</p>
+  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+
+  <div *ngIf="order && !loading" class="order-card">
+    <!-- ORDER SUMMARY -->
+    <div class="section">
+      <h2>Summary</h2>
+      <p><strong>Order ID:</strong> {{ order.id }}</p>
+      <p><strong>Order Number:</strong> {{ order.orderNumber }}</p>
+      <p>
+        <strong>Status:</strong>
+        <span class="badge {{ order.status }}">{{ order.status }}</span>
+      </p>
+      <p><strong>Payment Status:</strong> {{ order.paymentStatus }}</p>
+      <p><strong>Total Amount:</strong> {{ order.totalAmount | currency }}</p>
+    </div>
+
+    <!-- CUSTOMER & RECEIVER INFO -->
+    <div class="section">
+      <h2>Customer Information</h2>
+      <p><strong>Name:</strong> {{ order.customerName }}</p>
+      <p><strong>Email:</strong> {{ order.customerEmail }}</p>
+
+      <!-- <p><strong>Shipping Address:</strong> {{ order.shippingAddress }}</p> -->
+    </div>
+
+    <div class="section">
+      <h2>Receiver Information</h2>
+      <p><strong>Name:</strong> {{ order.receiver?.name }}</p>
+      <p><strong>Phone:</strong> {{ order.receiver?.phoneNumber }}</p>
+      <p><strong>Email:</strong> {{ order.receiver?.email }}</p>
+      <p>
+        <strong>Instructions:</strong> {{ order.receiver?.specialInstructions }}
+      </p>
+      <p><strong>Shipping Address:</strong> {{ order.shippingAddress }}</p>
+    </div>
+
+    <!-- DATES -->
+    <div class="section">
+      <h2>Order Dates</h2>
+      <p>
+        <strong>Order Date:</strong>
+        {{ order.orderDate | date : "MMM d, y, h:mm a" }}
+      </p>
+      <p>
+        <strong>Required Shipping Date:</strong>
+        {{ order.requiredShippingDate | date : "yyyy-MM-dd" }}
+      </p>
+    </div>
+
+    <!-- ITEMS -->
+    <div class="section">
+      <h2>Order Items</h2>
+
+      <table class="items-table" *ngIf="order.items?.length; else noItems">
+        <thead>
+          <tr>
+            <th>Icing</th>
+            <th>Message</th>
+            <th>Qty</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let it of order.items">
+            <td>{{ it.icing }}</td>
+            <td>{{ it.message }}</td>
+            <td>{{ it.quantity }}</td>
+            <td>{{ it.price | currency }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #noItems>
+        <p class="empty">No items in this order.</p>
+      </ng-template>
+    </div>
+
+    <!-- UPDATE STATUS -->
+    <div class="section">
+      <h2>Update Status</h2>
+
+      <select [(ngModel)]="newStatus">
+        <option
+          *ngFor="let s of statuses"
+          [value]="s"
+          [disabled]="isDisabledStatus(s)"
+        >
+          {{ s }}
+        </option>
+      </select>
+
+      <button class="update-btn" (click)="updateStatus()">Update</button>
+
+      <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+      <p class="error" *ngIf="updateError">{{ updateError }}</p>
+    </div>
+  </div>
+</section>

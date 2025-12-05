@@ -1,0 +1,74 @@
+.add-employee-page {
+  max-width: 420px;
+  margin: 2rem auto;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: .75rem;
+  border: 1px solid #f0d9c5;
+}
+
+label {
+  margin-top: 1rem;
+  display:block;
+  font-weight: 600;
+  color: #5a3516;
+}
+
+input {
+  width:100%;
+  padding:.5rem;
+  margin-top:.25rem;
+  border-radius:.5rem;
+  border:1px solid #d9c7b4;
+}
+
+.btn-save {
+  width:100%;
+  padding:.7rem;
+  margin-top:1.5rem;
+  background:#5a3516;
+  color:#fff;
+  border:none;
+  border-radius:.5rem;
+  cursor:pointer;
+}
+
+.btn-save:disabled {
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+.error-banner {
+  background: #ffe0e0;
+  color: #b20f0f;
+  padding: .75rem 1rem;
+  border-radius: .5rem;
+  border: 1px solid #ffb7b7;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.field-error {
+  color: #b20f0f;
+  font-size: .8rem;
+  margin-top: .25rem;
+}
+.success-banner {
+  background: #d1f7d6;
+  color: #1a6b2b;
+  padding: 0.9rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border: 1px solid #a0e6af;
+  font-weight: 500;
+}
+
+.error-banner {
+  background: #f8d7da;
+  color: #842029;
+  padding: 0.9rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border: 1px solid #f5c2c7;
+  font-weight: 500;
+}

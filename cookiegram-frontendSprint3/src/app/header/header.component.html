@@ -1,0 +1,47 @@
+<header class="cg-header">
+  <!-- Brand / Logo -->
+  <div class="brand" (click)="goHome()" style="cursor:pointer;">
+    <span class="logo">🍪</span>
+    <span class="title">CookieGram</span>
+  </div>
+
+  <nav class="nav-actions">
+    <!-- PRODUCTS PAGE: cart only -->
+    <ng-container *ngIf="isProductsRoute; else nonProductNav">
+      <button class="bag-btn" (click)="goCart()">
+        👜
+        <span class="badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
+      </button>
+    </ng-container>
+    
+
+    <!-- NON-PRODUCT PAGES -->
+    <ng-template #nonProductNav>
+
+      <!-- CUSTOMER PAGE + LOGGED IN: My Account + Logout + Cart -->
+      <ng-container *ngIf="isCustomerRoute && isLoggedIn; else publicNav">
+        <button class="link" (click)="goMyAccount()">My Account</button>
+        <button class="link" (click)="onLogout()">Logout</button>
+
+        <button class="bag-btn" (click)="goCart()">
+          👜
+          <span class="badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
+        </button>
+      </ng-container>
+
+      
+
+      <!-- PUBLIC / LANDING / NOT LOGGED IN -->
+      <ng-template #publicNav>
+        <button class="link" (click)="goLogin()">Login</button>
+        <button class="cta" (click)="goSignup()">Create Account</button>
+
+        <button class="bag-btn" (click)="goCart()">
+          👜
+          <span class="badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
+        </button>
+      </ng-template>
+
+    </ng-template>
+  </nav>
+</header>

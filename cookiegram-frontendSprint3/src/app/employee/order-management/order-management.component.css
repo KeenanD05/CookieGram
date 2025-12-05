@@ -1,0 +1,148 @@
+.orders-page {
+  max-width: 1100px;
+  margin: auto;
+  padding: 2rem;
+}
+
+h1 {
+  color: #5a3516;
+  margin-bottom: .3rem;
+}
+
+.subtitle {
+  color: #7a4f2e;
+  opacity: .9;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+.back-btn {
+  background: none;
+  border: none;
+  color: #5a3516;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.order-count {
+  font-weight: 600;
+  color: #5a3516;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+/* FILTERS */
+.filter-box {
+  background: #fff8f1;
+  padding: 1.2rem;
+  border-radius: 12px;
+  border: 1px solid #eed9c4;
+  margin-bottom: 1.7rem;
+  display: grid;
+  gap: 1.2rem;
+}
+
+.filter-row {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+}
+
+label {
+  font-weight: 600;
+  color: #5a3516;
+  font-size: .95rem;
+}
+
+select, input[type="email"], input[type="text"], input[type="number"], input[type="date"] {
+  padding: .5rem .7rem;
+  border-radius: 6px;
+  border: 1px solid #d8c3ac;
+  font-size: .95rem;
+}
+
+.date-range,
+.amount-range {
+  display: flex;
+  gap: .7rem;
+}
+
+.apply-btn {
+  background: #5a3516;
+  color: white;
+  padding: .7rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 180px;
+}
+
+.apply-btn:hover {
+  opacity: .85;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+th, td {
+  padding: 1rem;
+  border-bottom: 1px solid #f0d9c5;
+  text-align: left;
+  font-size: .95rem;
+}
+
+th {
+  background: #fff5ec;
+  color: #5a3516;
+  font-size: 1rem;
+}
+
+tr:hover {
+  background: #fff8f2;
+  transition: .2s;
+}
+
+/* STATUS BADGES */
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 8px;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.pending { background: #c9a532; }
+.baking { background: #ff9800; }
+.packaged { background: #0097a7; }
+.ready_for_pickup { background: #5c6bc0; }
+.shipped { background: #0288d1; }
+.delivered { background: #43a047; }
+.cancelled { background: #e53935; }
+
+.view-btn {
+  background: #5a3516;
+  color: white;
+  border: none;
+  padding: .45rem .9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: .9rem;
+}
+
+.view-btn:hover {
+  background: #744422;
+}
+
+.empty {
+  text-align: center;
+  color: #777;
+  font-size: 1.1rem;
+  margin-top: 2rem;
+}

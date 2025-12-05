@@ -1,0 +1,39 @@
+<section class="cart-page">
+  <h1>Your Cart 👜</h1>
+
+  <!-- EMPTY CART VIEW -->
+  <div *ngIf="items.length === 0" class="empty">
+    <p>Your cart is empty.</p>
+
+    <button class="back-empty" (click)="goBack()">
+      ← Back
+    </button>
+  </div>
+
+  <!-- CART ITEMS -->
+  <div *ngFor="let item of items; let i = index" class="cart-item">
+    <div class="info">
+      <p><strong>{{ item.quantity }}× CookieGram</strong></p>
+      <p *ngIf="item.icing">Icing: {{ item.icing }}</p>
+      <p *ngIf="item.message">Message: "{{ item.message }}"</p>
+    </div>
+    <div class="actions">
+      <p class="price">{{ (item.price * item.quantity) | currency }}</p>
+      <button (click)="remove(i)">Remove</button>
+    </div>
+  </div>
+
+  <!-- SUMMARY (only if items present) -->
+  <div class="summary" *ngIf="items.length > 0">
+    <p>Subtotal: {{ subtotal | currency }}</p>
+    <p>Shipping: {{ shipping | currency }}</p>
+    <p>Tax (13%): {{ (subtotal * taxRate) | currency }}</p>
+    <hr />
+    <h3>Total: {{ total | currency }}</h3>
+
+    <div class="btn-row">
+      <button class="back" (click)="goBack()">← Add to Order</button>
+      <button class="checkout" (click)="checkout()">Checkout →</button>
+    </div>
+  </div>
+</section>

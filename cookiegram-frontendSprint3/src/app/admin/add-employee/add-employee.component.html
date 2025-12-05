@@ -1,0 +1,104 @@
+<section class="add-employee-page">
+  <h2>Create Employee Account</h2>
+
+  <!-- Error Banner -->
+  <div *ngIf="errorMessage" class="error-banner" [innerHTML]="errorMessage"></div>
+  <div *ngIf="successMessage" class="success-banner">
+    {{ successMessage }}
+  </div>
+  <form (ngSubmit)="submit()" #form="ngForm">
+
+    <!-- FIRST NAME -->
+    <label>First Name</label>
+    <input 
+      type="text" 
+      name="firstName"
+      [(ngModel)]="employee.firstName"
+      #firstName="ngModel"
+      required
+    >
+    <div class="field-error" *ngIf="form.submitted && firstName.invalid">
+      First name is required.
+    </div>
+
+    <!-- LAST NAME -->
+    <label>Last Name</label>
+    <input 
+      type="text" 
+      name="lastName"
+      [(ngModel)]="employee.lastName"
+      #lastName="ngModel"
+      required
+    >
+    <div class="field-error" *ngIf="form.submitted && lastName.invalid">
+      Last name is required.
+    </div>
+
+    <!-- USERNAME -->
+    <label>Username</label>
+    <input 
+      type="text" 
+      name="username"
+      [(ngModel)]="employee.username"
+      #username="ngModel"
+      required
+    >
+    <div class="field-error" *ngIf="form.submitted && username.invalid">
+      Username is required.
+    </div>
+
+    <!-- MOBILE NUMBER -->
+    <label>Mobile Number</label>
+    <input 
+      type="tel" 
+      name="mobileNumber"
+      [(ngModel)]="employee.mobileNumber"
+      #mobileNumber="ngModel"
+      required
+    >
+    <div class="field-error" *ngIf="form.submitted && mobileNumber.invalid">
+      Mobile number is required.
+    </div>
+
+    <!-- EMAIL -->
+    <label>Email</label>
+    <input 
+      type="email" 
+      name="email"
+      [(ngModel)]="employee.email"
+      #email="ngModel"
+      required
+      email
+    >
+    <div class="field-error" *ngIf="form.submitted && email.invalid">
+      Please enter a valid email.
+    </div>
+
+    <!-- PASSWORD -->
+    <label>Password</label>
+    <input 
+      type="password" 
+      name="password"
+      [(ngModel)]="employee.password"
+      #password="ngModel"
+      required
+      minlength="6"
+    >
+    <div class="field-error" *ngIf="form.submitted && password.invalid">
+      Password must be at least 6 characters.
+    </div>
+
+    <!-- SAVE BUTTON -->
+    <button class="btn-save" [disabled]="form.invalid">
+      Save Employee
+    </button>
+
+  </form>
+</section>
+<section class="add-employee-page">
+
+  <!-- SUCCESS BANNER -->
+  
+
+  <!-- ERROR BANNER -->
+  <!-- <div *ngIf="errorMessage" class="error-banner" [innerHTML]="errorMessage"></div> -->

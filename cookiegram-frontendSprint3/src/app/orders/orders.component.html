@@ -1,0 +1,16 @@
+<section class="orders-page">
+  <h1>My Orders</h1>
+
+  <div *ngIf="orders.length === 0">
+    <p>No past orders yet.</p>
+  </div>
+
+  <ul *ngIf="orders.length > 0">
+    <li *ngFor="let order of orders">
+      <strong>Order #{{ order.id }}</strong> — 
+      {{ order.total | currency }}
+      <br>
+      <small>{{ order.createdAt | date }}</small>
+    </li>
+  </ul>
+</section>

@@ -1,0 +1,102 @@
+<section class="orders-page">
+  <button class="back-btn" (click)="goBack()">← Back</button>
+  <h1>Order Management</h1>
+  <p class="subtitle">View and manage all customer orders</p>
+
+  <!-- ORDER COUNT -->
+  <p class="order-count">Showing {{ orders.length }} orders</p>
+
+  <!-- FILTER PANEL -->
+  <div class="filter-box">
+
+    <!-- STATUS FILTER -->
+    <div class="filter-row">
+      <label>Status</label>
+      <select [(ngModel)]="filters.status">
+        <option value="">All</option>
+        <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
+      </select>
+    </div>
+
+    <!-- DELIVERY DATE FILTER -->
+    <div class="filter-row">
+      <label>Delivery Date</label>
+
+      <select [(ngModel)]="filters.deliveryPreset" (change)="onDeliveryPresetChange()">
+        <option value="">Any</option>
+        <option value="today">Today</option>
+        <option value="range">Range</option>
+      </select>
+
+      <div *ngIf="filters.deliveryPreset === 'range'" class="date-range">
+        <input type="date" [(ngModel)]="filters.deliveryFrom"/>
+        <input type="date" [(ngModel)]="filters.deliveryTo"/>
+      </div>
+    </div>
+
+    <!-- CUSTOMER EMAIL -->
+    <div class="filter-row">
+      <label>Customer Email</label>
+      <input type="email" [(ngModel)]="filters.customerEmail" placeholder="example@gmail.com"/>
+    </div>
+
+     <div class="filter-row">
+      <label>Order Number</label>
+      <input type="text" [(ngModel)]="filters.orderNumber" placeholder="ORD..."/>
+    </div>
+
+    <!-- TOTAL AMOUNT -->
+    <div class="filter-row">
+      <label>Order Total ($)</label>
+      <div class="amount-range">
+        <input type="number" [(ngModel)]="filters.totalMin" placeholder="Min" min="0"/>
+        <input type="number" [(ngModel)]="filters.totalMax" placeholder="Max" min="0"/>
+      </div>
+    </div>
+
+    <button class="apply-btn" (click)="applyFilters()">Apply Filters</button>
+
+  </div>
+
+  <p *ngIf="loading" class="loading">Loading orders...</p>
+  <!-- <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p> -->
+
+  <!-- ORDERS TABLE -->
+  <table class="orders-table" *ngIf="!loading && orders.length > 0; else emptyState">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Customer</th>
+        <th>Status</th>
+        
+        <th>Total</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let o of orders">
+        <td>{{ o.orderNumber }}</td>
+        <td>{{ o.customerName }}</td>
+
+        <td>
+          <span class="status-badge" [ngClass]="o.status.toLowerCase()">
+            {{ formatStatus(o.status) }}
+          </span>
+        </td>
+
+
+        <td>{{ o.totalAmount | currency }}</td>
+
+        <td>
+          <button class="view-btn" (click)="viewOrder(o.id)">View</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #emptyState>
+    <p class="empty">No orders found.</p>
+  </ng-template>
+
+</section>

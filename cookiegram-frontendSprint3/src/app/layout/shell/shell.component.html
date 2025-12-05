@@ -1,0 +1,9 @@
+<!-- Hide header on admin + staff pages -->
+<app-header *ngIf="!isAdminRoute && !isStaffRoute"></app-header>
+
+<main class="cg-main">
+  <router-outlet></router-outlet>
+</main>
+
+<!-- Footer always visible -->
+<app-footer></app-footer>

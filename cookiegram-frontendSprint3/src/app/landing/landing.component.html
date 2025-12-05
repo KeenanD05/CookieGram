@@ -1,0 +1,43 @@
+<section class="landing">
+  <h1>Delivering Joy. One Cookie at a time...</h1>
+  <p>Sweeten your day with handcrafted cookies & cozy vibes.</p>
+
+      <button class="order-btn" routerLink="/products">Order Now</button>
+
+  <button class="cta" (click)="goLogin()">Login</button>
+  <div class="actions">
+    
+    <a class="see-link" href="#promos">See Today’s Treats</a>
+  </div>
+</section>
+
+<!-- 🌟 Dynamic Promotions Section -->
+<section id="promos" class="promos" *ngIf="promos.length > 0">
+  <h2>Today’s Promotions 🍪</h2>
+  <div class="promo-grid">
+    <div class="promo-card" *ngFor="let p of promos">
+      <div class="badge" *ngIf="p.badge">{{ p.badge }}</div>
+      <h3>{{ p.title }}</h3>
+      <p>{{ p.description }}</p>
+      <p *ngIf="p.price" class="price">{{ p.price | currency }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- 🧁 About Section -->
+<section class="about">
+  <div class="about-content">
+    <h2>About CookieGram</h2>
+    <p>
+      CookieGram started with a dream: to spread warmth, one cookie at a time.
+      Every treat is baked fresh daily with love, premium ingredients, and a sprinkle of joy.
+    </p>
+    <p>
+      Whether you’re celebrating, gifting, or just craving comfort, our cookies are made to
+      melt hearts and sweeten your moments.
+    </p>
+  </div>
+  <div class="about-image">
+    <img src="cookie-4245030_1920.jpg" alt="Cookie display" />
+  </div>
+</section>

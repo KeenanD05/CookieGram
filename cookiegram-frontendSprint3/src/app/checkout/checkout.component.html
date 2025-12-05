@@ -1,0 +1,122 @@
+<section class="checkout-page">
+
+  <h1>Checkout</h1>
+
+  <!-- CART ITEMS -->
+  <ul class="cart-list">
+    <li *ngFor="let it of items" class="item-row">
+      <span><strong>{{ it.quantity }}</strong> CookieGram</span>
+
+      <div class="item-details">
+        <span *ngIf="it.icing">Icing: {{ it.icing }}</span>
+        <span *ngIf="it.message"> | "{{ it.message }}"</span>
+      </div>
+
+      <span class="item-price">{{ (it.price * it.quantity) | currency }}</span>
+    </li>
+  </ul>
+
+  <!-- ORDER SUMMARY -->
+  <div class="summary-box">
+    <h2>Summary</h2>
+    <p>Subtotal: <strong>{{ subtotal | currency }}</strong></p>
+    <p>Shipping: <strong>{{ shipping | currency }}</strong></p>
+    <p>Tax: <strong>{{ tax | currency }}</strong></p>
+    <h3>Total: <strong>{{ total | currency }}</strong></h3>
+  </div>
+
+  <!-- DELIVERY INFO -->
+  <div class="info-box">
+  <h2>Delivery Information</h2>
+
+  <!-- Full Name -->
+  <label>Full Name <span class="required">*</span></label>
+  <input type="text" placeholder="Full Name" [(ngModel)]="name">
+  <p class="error" *ngIf="submitted && !name?.trim()">Full name is required.</p>
+
+  <!-- Your Email -->
+  <label>Your Email <span class="required">*</span></label>
+  <input type="email" placeholder="Your Email" [(ngModel)]="email">
+  <p class="error" *ngIf="submitted && !email?.trim()">Your email is required.</p>
+
+  <!-- Recipient Email -->
+  <label>Recipient's Email <span class="required">*</span></label>
+  <input type="email" placeholder="Recipient's Email" [(ngModel)]="recipientEmail">
+  <p class="error" *ngIf="submitted && !recipientEmail?.trim()">Recipient email is required.</p>
+
+  <!-- Recipient Name -->
+  <label>Recipient's Full Name <span class="required">*</span></label>
+  <input type="text" placeholder="Recipient's Full Name" [(ngModel)]="recipientName">
+  <p class="error" *ngIf="submitted && !recipientName?.trim()">Recipient name is required.</p>
+
+  <!-- Recipient Phone -->
+  <label>Recipient's Phone Number <span class="required">*</span></label>
+  <input type="tel" placeholder="Recipient's Phone Number" [(ngModel)]="recipientPhone">
+  <p class="error" *ngIf="submitted && !recipientPhone?.trim()">Recipient phone number is required.</p>
+
+  <!-- Special Instructions -->
+  <label>Special Instructions</label>
+  <textarea
+    placeholder="Special Instructions for Delivery"
+    [(ngModel)]="specialInstructions"
+    rows="2"
+  ></textarea>
+
+  <!-- Delivery Date -->
+  <label class="label">Select Intended Delivery Date <span class="required">*</span></label>
+  <input 
+    type="date"
+    [(ngModel)]="deliveryDate"
+    [min]="minDeliveryDate"
+  >
+  <p class="error" *ngIf="submitted && !deliveryDate">Delivery date is required.</p>
+  
+
+  <h3 class="section-title">Address</h3>
+
+  <!-- Street -->
+  <label>Street Address <span class="required">*</span></label>
+  <input type="text" placeholder="Street Address" [(ngModel)]="street">
+  <p class="error" *ngIf="submitted && !street?.trim()">Street address is required.</p>
+
+  <!-- City -->
+  <label>City <span class="required">*</span></label>
+  <input type="text" placeholder="City" [(ngModel)]="city">
+  <p class="error" *ngIf="submitted && !city?.trim()">City is required.</p>
+
+  <!-- Province -->
+  <label>Province <span class="required">*</span></label>
+  <input type="text" placeholder="Province" [(ngModel)]="province">
+  <p class="error" *ngIf="submitted && !province?.trim()">Province is required.</p>
+
+  <!-- Postal Code -->
+  <label>Postal Code <span class="required">*</span></label>
+  <input type="text" placeholder="Postal Code" [(ngModel)]="postalCode">
+  <p class="error" *ngIf="submitted && !postalCode?.trim()">Postal code is required.</p>
+
+</div>
+
+  <!-- PAYMENT SECTION -->
+  <div class="payment-box">
+    <h2>Payment Details</h2>
+
+    <label class="label">Credit Card</label>
+    <div id="card-element" class="card-element"></div>
+
+    <p class="error" *ngIf="cardError">{{ cardError }}</p>
+    <p class="error" *ngIf="formError">{{ formError }}</p>
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="actions">
+    <button class="back" (click)="back()">← Back</button>
+
+    <button class="checkout" 
+        (click)="checkout()" 
+        [disabled]="!isFormValid()">
+      Pay Now
+    </button>
+
+  </div>
+
+</section>

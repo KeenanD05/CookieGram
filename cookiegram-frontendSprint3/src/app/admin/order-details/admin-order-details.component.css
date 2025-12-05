@@ -1,0 +1,102 @@
+.details-page {
+  max-width: 850px;
+  margin: auto;
+  padding: 2rem;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: #5a3516;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.order-card {
+  display: grid;
+  gap: 1.5rem;
+  background: #fff8f1;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #eed9c4;
+}
+
+.section h2 {
+  margin-bottom: .4rem;
+  color: #5a3516;
+}
+
+.badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  color: white;
+}
+
+.BADGE.PENDING, .PENDING { background: #999; }
+.BAKING { background: #c77d18; }
+.PACKAGED { background: #5a7280; }
+.READY_FOR_PICKUP { background: #1b8f2c; }
+.SHIPPED { background: #1572d6; }
+.DELIVERED { background: #006f2a; }
+.CANCELLED { background: #b10000; }
+
+.items-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.items-table th {
+  background: #fff5ec;
+}
+
+.items-table td, th {
+  padding: .8rem;
+  border-bottom: 1px solid #e7d3bf;
+}
+
+/* Make the table columns behave predictably */
+.items-table {
+  table-layout: fixed;        /* columns don’t stretch randomly */
+}
+
+/* Same text alignment baseline */
+.items-table th,
+.items-table td {
+  text-align: left;
+}
+
+/* Optional: tweak column alignment */
+.items-table th:nth-child(3),
+.items-table td:nth-child(3) {
+  text-align: center;         /* Qty */
+  width: 60px;
+}
+
+.items-table th:nth-child(4),
+.items-table td:nth-child(4) {
+  text-align: right;          /* Price */
+  width: 90px;
+}
+
+.status-dropdown {
+  padding: .6rem;
+  width: 220px;
+  border-radius: 6px;
+}
+
+.update-btn {
+  padding: .6rem 1.2rem;
+  margin: .6rem;
+  background: #5a3516;
+  color: white;
+  border-radius: 6px;
+}
+
+.success {
+  color: green;
+}
+
+.error {
+  color: red;
+}

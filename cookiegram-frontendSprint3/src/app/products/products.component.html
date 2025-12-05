@@ -1,0 +1,42 @@
+<section class="product-page">
+  <h1>Customize Your CookieGram 🍪</h1>
+
+  <div class="product-box">
+    
+    <img src="cookie-4245030_1920.jpg" class="product-image" alt="CookieGram"/>
+
+    <div class="controls">
+
+      <label>Icing Flavor:</label>
+      <select [(ngModel)]="selectedFlavor">
+        <option *ngFor="let f of icingFlavors" [value]="f">{{ f }}</option>
+      </select>
+
+      <label>Icing Color:</label>
+      <select [(ngModel)]="selectedColor">
+        <option *ngFor="let c of icingColors" [value]="c">{{ c }}</option>
+      </select>
+
+      <label>Custom Message (Optional):</label>
+      <input type="text" [(ngModel)]="customMessage" placeholder="e.g. Happy Birthday!" />
+
+      <label>Quantity:</label>
+      <div class="qty">
+        <button (click)="decrease()">-</button>
+        <span>{{ quantity }}</span>
+        <button (click)="increase()">+</button>
+      </div>
+
+      <p class="price">Total: {{ totalPrice | currency }}</p>
+
+      <div class="actions">
+        <button class="bag-btn" (click)="addToBag()">Add to Bag</button>
+        <button class="checkout-btn" (click)="goCheckout()">Checkout</button>
+      </div>
+
+    </div>
+  </div>
+
+  <button class="back-btn" (click)="goBack()">← Go Back</button>
+
+</section>

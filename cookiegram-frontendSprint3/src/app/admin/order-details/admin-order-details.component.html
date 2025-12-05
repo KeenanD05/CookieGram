@@ -84,7 +84,9 @@
 
       <select [(ngModel)]="newStatus" class="status-dropdown">
         <option value="">Select Status</option>
-        <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
+        <option *ngFor="let s of statuses" [value]="s">
+          {{ formatStatusLabel(s) }}
+        </option>
       </select>
 
       <button class="update-btn" (click)="updateStatus()">Update</button>

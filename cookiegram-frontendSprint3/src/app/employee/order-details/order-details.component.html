@@ -87,13 +87,10 @@
     <div class="section">
       <h2>Update Status</h2>
 
-      <select [(ngModel)]="newStatus">
-        <option
-          *ngFor="let s of statuses"
-          [value]="s"
-          [disabled]="isDisabledStatus(s)"
-        >
-          {{ s }}
+      <select [(ngModel)]="newStatus" class="status-dropdown">
+        <option value="">Select Status</option>
+        <option *ngFor="let s of statuses" [value]="s">
+          {{ formatStatusLabel(s) }}
         </option>
       </select>
 

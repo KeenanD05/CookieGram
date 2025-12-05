@@ -22,7 +22,7 @@ export class OrderDetailsComponent implements OnInit {
   successMessage = '';
 
   statuses = [
-    'PENDING', 'BAKING', 'PACKAGED', 'READY FOR PICKUP',
+    'PENDING', 'BAKING', 'PACKAGED', 'READY_FOR_PICKUP',
     'SHIPPED', 'DELIVERED', 
   ];
   getStatusIndex(status: string): number {
@@ -61,6 +61,12 @@ isDisabledStatus(status: string): boolean {
       }
     });
   }
+    formatStatusLabel(status: string): string {
+  return status
+    .toLowerCase()
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, c => c.toUpperCase());
+}
 
   updateStatus() {
     if (!this.newStatus) {

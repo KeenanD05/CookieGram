@@ -22,7 +22,7 @@ export class AdminOrderDetailsComponent implements OnInit {
   successMessage = '';
 
   statuses = [
-    'PENDING', 'BAKING', 'PACKAGED', 'READY FOR PICKUP',
+    'PENDING', 'BAKING', 'PACKAGED', 'READY_FOR_PICKUP',
     'SHIPPED', 'DELIVERED', 'CANCELLED',
   ];
 
@@ -53,7 +53,12 @@ export class AdminOrderDetailsComponent implements OnInit {
       }
     });
   }
-
+  formatStatusLabel(status: string): string {
+  return status
+    .toLowerCase()
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, c => c.toUpperCase());
+}
   updateStatus() {
     if (!this.newStatus) {
       this.updateError = "Please select a status.";

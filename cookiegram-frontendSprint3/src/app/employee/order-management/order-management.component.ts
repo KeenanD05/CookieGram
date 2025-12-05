@@ -18,7 +18,7 @@ export class OrderManagementComponent implements OnInit {
   errorMessage = '';
 
   statuses = [
-    'PENDING', 'BAKING', 'PACKAGED', 'READY FOR PICKUP',
+    'PENDING', 'BAKING', 'PACKAGED', 'READY_FOR_PICKUP',
     'SHIPPED', 'DELIVERED', 'CANCELLED'
   ];
 

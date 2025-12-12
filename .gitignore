@@ -1,8 +1,50 @@
-**/node_modules/
-**/dist/
-**/.angular/
-**/.idea/
-**/.vscode/
-**/target/
-.env
+# ────────────────
+# FRONTEND (Angular)
+# ────────────────
+cookiegram-frontend/node_modules
+cookiegram-frontend/dist
+cookiegram-frontend/.angular/cache
+cookiegram-frontend/tmp
+cookiegram-frontend/out-tsc
+cookiegram-frontend/bazel-out
+cookiegram-frontend/npm-debug.log
+cookiegram-frontend/yarn-error.log
+
+# ────────────────
+# BACKEND (Spring Boot)
+# ────────────────
+cookiegram-backend/target
+cookiegram-backend/.classpath
+cookiegram-backend/.project
+cookiegram-backend/.settings/
+
+# ────────────────
+# IDEs & Editors
+# ────────────────
+.idea/
+.vscode/
+*.sublime-workspace
+*.launch
+.c9/
+
+# ────────────────
+# Logs & Coverage
+# ────────────────
 *.log
+.sass-cache/
+.connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+
+# ────────────────
+# System files
+# ────────────────
+.DS_Store
+Thumbs.db
+
+# ────────────────
+# Miscellaneous
+# ────────────────
+.history/

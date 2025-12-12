@@ -1,0 +1,80 @@
+/* Global CookieGram Style */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+
+:root {
+  --bg-light: #fff6ef;
+  --bg-accent: #fbe2cf;
+  --text-dark: #3b2311;
+  --text-accent: #8b4513;
+  --primary: #6b4226;
+  --primary-dark: #402311;
+  --highlight: #ffb26b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: var(--bg-light);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+h1, h2, h3 {
+  color: var(--primary-dark);
+  letter-spacing: -0.5px;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: 0.25s ease;
+}
+
+/* Utility buttons */
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  padding: 0.8rem 1.6rem;
+}
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: scale(1.04);
+}
+
+/* Links */
+a {
+  color: var(--text-accent);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover {
+  color: var(--primary-dark);
+}
+
+/* Container widths */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 1.5rem;
+}
+
+/* Card style */
+.card {
+  background: white;
+  border-radius: 1.2rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}

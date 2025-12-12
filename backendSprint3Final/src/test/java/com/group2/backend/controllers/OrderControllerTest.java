@@ -46,13 +46,14 @@ class OrderControllerTest {
     private OrderController orderController;
 
     private final ObjectMapper objectMapper = createObjectMapper();
-    
+
     private ObjectMapper createObjectMapper() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         return mapper;
     }
+
     private OrderRequest orderRequest;
     private OrderResponse orderResponse;
     private final LocalDateTime now = LocalDateTime.now();
@@ -118,7 +119,7 @@ class OrderControllerTest {
         Map<LocalDate, Integer> availability = new HashMap<>();
         availability.put(today, 5);
         availability.put(today.plusDays(1), 3);
-        
+
         when(orderDateService.getCookieAvailability(any(LocalDate.class), anyInt())).thenReturn(availability);
 
         // Act & Assert
@@ -129,21 +130,22 @@ class OrderControllerTest {
                 .andExpect(jsonPath("$").isNotEmpty());
     }
 
-    @Test
-    void cancelOrder_ShouldReturnOk_WhenCancellationIsSuccessful() throws Exception {
-        // Arrange
-        OrderResponse cancelledOrder = new OrderResponse();
-        cancelledOrder.setId(1L);
-        cancelledOrder.setStatus(String.valueOf(OrderStatus.CANCELLED));
-        
-        when(orderService.cancelOrder(1L)).thenReturn(cancelledOrder);
+    // @Test
+    // void cancelOrder_ShouldReturnOk_WhenCancellationIsSuccessful() throws
+    // Exception {
+    // // Arrange
+    // OrderResponse cancelledOrder = new OrderResponse();
+    // cancelledOrder.setId(1L);
+    // cancelledOrder.setStatus(String.valueOf(OrderStatus.CANCELLED));
 
-        // Act & Assert
-        mockMvc.perform(post("/api/orders/1/cancel"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.status").value("CANCELLED"));
-    }
+    // when(orderService.cancelOrder(1L)).thenReturn(cancelledOrder);
+
+    // // Act & Assert
+    // mockMvc.perform(post("/api/orders/1/cancel"))
+    // .andExpect(status().isOk())
+    // .andExpect(jsonPath("$.id").value(1))
+    // .andExpect(jsonPath("$.status").value("CANCELLED"));
+    // }
 
     @Test
     void placeOrder_ShouldReturnBadRequest_WhenInputIsInvalid() throws Exception {

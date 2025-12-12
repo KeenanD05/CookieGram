@@ -1,0 +1,36 @@
+name: Staging Deployment
+
+on:
+  push:
+    branches: [ "staging" ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and Push Backend (Staging)
+      uses: docker/build-push-action@v5
+      with:
+        context: ./backendSprint3Final
+        file: ./backendSprint3Final/Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/cookiegram-backend:staging
+
+    - name: Build and Push Frontend (Staging)
+      uses: docker/build-push-action@v5
+      with:
+        context: ./cookiegram-frontendSprint3
+        file: ./cookiegram-frontendSprint3/Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/cookiegram-frontend:staging

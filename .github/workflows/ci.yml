@@ -1,23 +1,24 @@
-name: CI Pipeline
+name: Continuous Integration
 
 on:
   push:
-    branches: [ "main", "staging", "sprint-3-order-status" ]
+    branches: [ "sprint-3-order-status", "staging", "main" ]
   pull_request:
-    branches: [ "main", "staging" ]
+    branches: [ "sprint-3-order-status", "staging", "main" ]
 
 jobs:
   test-backend:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    
     - name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
-    # Run Tests (Do NOT use -DskipTests here)
+        
     - name: Run Backend Tests
       run: mvn test --file backendSprint3Final/pom.xml
 
@@ -25,16 +26,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '18'
         cache: 'npm'
         cache-dependency-path: cookiegram-frontendSprint3/package-lock.json
+        
     - name: Install Dependencies
       working-directory: ./cookiegram-frontendSprint3
       run: npm ci
-    # Run Frontend Tests (Optional if you have them set up, otherwise just build)
+      
     - name: Build Frontend
       working-directory: ./cookiegram-frontendSprint3
       run: npm run build --configuration=production

@@ -103,8 +103,7 @@ public class WebSecurityConfig {
                 "http://localhost:4200",
                 "http://localhost:80",
                 "http://localhost",
-                "http://127.0.0.1"
-        ));
+                "http://127.0.0.1"));
 
         // ALLOW ALL METHODS (GET, POST, PUT, DELETE, OPTIONS)
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
@@ -131,27 +130,26 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.csrf(csrf -> csrf.disable())
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> auth
-            	    .requestMatchers("/api/auth/**").permitAll()
-            	    .requestMatchers("/api/session/**").permitAll()
-            	    .requestMatchers("/api/public/**").permitAll()
-            	    .requestMatchers("/api/public-orders/**").permitAll()
-            	    .requestMatchers("/v3/api-docs/**").permitAll()
-            	    .requestMatchers("/h2-console/**").permitAll()
-            	    .requestMatchers("/payments/**").permitAll()
-            	    .requestMatchers("/api/test/**").permitAll()
-            	    .requestMatchers(HttpMethod.POST, "/api/orders").permitAll()
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/session/**").permitAll()
+                        .requestMatchers("/api/public/**").permitAll()
+                        .requestMatchers("/api/public-orders/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll()
+                        .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/payments/**").permitAll()
+                        .requestMatchers("/api/test/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/orders").permitAll()
+                        .requestMatchers("/health").permitAll()
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/staff/**").hasAnyRole("ADMIN", "STAFF")
+                        .requestMatchers("/health").permitAll()
+                        .anyRequest().authenticated())
 
-            	    .requestMatchers("/api/admin/**").hasRole("ADMIN")
-            	    .requestMatchers("/api/staff/**").hasAnyRole("ADMIN", "STAFF")
-
-            	    .anyRequest().authenticated()
-            	)
-
-;
+        ;
 
         http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -181,7 +179,8 @@ public class WebSecurityConfig {
     // ----------------------------
     @Bean
     @Transactional
-    public CommandLineRunner initData(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public CommandLineRunner initData(RoleRepository roleRepository, UserRepository userRepository,
+            PasswordEncoder passwordEncoder) {
         return args -> {
             Role userRole = ensureRoleExists(roleRepository, AppRole.ROLE_USER);
             Role staffRole = ensureRoleExists(roleRepository, AppRole.ROLE_STAFF);
@@ -204,32 +203,31 @@ public class WebSecurityConfig {
     @Transactional
     protected Role ensureRoleExists(RoleRepository roleRepository, AppRole roleName) {
         return roleRepository.findByRoleName(roleName)
-            .orElseGet(() -> roleRepository.save(new Role(roleName)));
+                .orElseGet(() -> roleRepository.save(new Role(roleName)));
     }
 
     @Transactional
     protected void createOrUpdateUser(String username, String email, String password,
-                                      String firstName, String lastName, String mobileNumber,
-                                      List<Role> roles, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+            String firstName, String lastName, String mobileNumber,
+            List<Role> roles, UserRepository userRepository, PasswordEncoder passwordEncoder) {
 
         userRepository.findByUserName(username).ifPresentOrElse(
-            user -> {
-                user.setEmail(email);
-                user.setPassword(passwordEncoder.encode(password));
-                user.setFirstName(firstName);
-                user.setLastName(lastName);
-                user.setMobileNumber(mobileNumber);
-                user.getRoles().clear();
-                roles.forEach(user::addRole);
-                userRepository.save(user);
-            },
-            () -> {
-                User newUser = new User(username, email, passwordEncoder.encode(password),
-                        firstName, lastName, mobileNumber);
-                roles.forEach(newUser::addRole);
-                userRepository.save(newUser);
-            }
-        );
+                user -> {
+                    user.setEmail(email);
+                    user.setPassword(passwordEncoder.encode(password));
+                    user.setFirstName(firstName);
+                    user.setLastName(lastName);
+                    user.setMobileNumber(mobileNumber);
+                    user.getRoles().clear();
+                    roles.forEach(user::addRole);
+                    userRepository.save(user);
+                },
+                () -> {
+                    User newUser = new User(username, email, passwordEncoder.encode(password),
+                            firstName, lastName, mobileNumber);
+                    roles.forEach(newUser::addRole);
+                    userRepository.save(newUser);
+                });
     }
 
     // ----------------------------
@@ -251,7 +249,7 @@ public class WebSecurityConfig {
                 c1.setDiscount(0.0);
                 c1.setAvailable(true);
                 c1.setImageUrl("https://example.com/choco.jpg");
-                c1.setIngredients(new HashSet<>(Arrays.asList("flour","sugar","butter","eggs","chocolate")));
+                c1.setIngredients(new HashSet<>(Arrays.asList("flour", "sugar", "butter", "eggs", "chocolate")));
                 c1.setCustomizable(true);
 
                 Cookie c2 = new Cookie();
@@ -265,12 +263,12 @@ public class WebSecurityConfig {
                 c2.setDiscount(0.0);
                 c2.setAvailable(true);
                 c2.setImageUrl("https://example.com/sugar.jpg");
-                c2.setIngredients(new HashSet<>(Arrays.asList("flour","sugar","butter","eggs")));
+                c2.setIngredients(new HashSet<>(Arrays.asList("flour", "sugar", "butter", "eggs")));
                 c2.setCustomizable(true);
 
                 cookieRepository.saveAll(List.of(c1, c2));
             }
         };
-        
+
     }
 }

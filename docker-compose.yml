@@ -1,5 +1,77 @@
-version: '3.8'
+# Docker Compose file for Cookiegram Application capstone prep course
+# version: '3.8'
 
+# services:
+#   # ---------------------------------
+#   # 1. DATABASE (MySQL)
+#   # ---------------------------------
+#   mysqldb:
+#     image: mysql:8.0
+#     container_name: cookiegram-db
+#     restart: always
+#     environment:
+#       MYSQL_DATABASE: cookiegramdb
+#       MYSQL_ROOT_PASSWORD: rootpassword
+#       MYSQL_USER: cookieuser
+#       MYSQL_PASSWORD: password
+#     volumes:
+#       - db_data:/var/lib/mysql
+#     networks:
+#       - cookiegram-net
+#     healthcheck:
+#       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+#       timeout: 20s
+#       retries: 10
+
+#   # ---------------------------------
+#   # 2. BACKEND (Spring Boot)
+#   # ---------------------------------
+#   backend:
+#     image: keenusheridan/cookiegram-backend:latest 
+#     container_name: cookiegram-backend
+#     restart: always
+#     depends_on:
+#       mysqldb:
+#         condition: service_healthy
+#     ports:
+#       - "8080:8080"
+#     environment:
+#       - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/cookiegramdb?allowPublicKeyRetrieval=true&useSSL=false
+#       - SPRING_DATASOURCE_USERNAME=cookieuser
+#       - SPRING_DATASOURCE_PASSWORD=password
+      
+#       # Inject Secrets from .env file
+#       - STRIPE_API_KEY=${STRIPE_API_KEY}
+#       - STRIPE_PUBLIC_KEY=${STRIPE_PUBLIC_KEY}
+#       - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
+#       - EMAIL_APP_USER=${EMAIL_APP_USER}
+#       - EMAIL_APP_PASSWORD=${EMAIL_APP_PASSWORD}
+      
+#       # Allow frontend access
+#       - ALLOWED_ORIGINS=http://localhost,http://127.0.0.1
+#     networks:
+#       - cookiegram-net
+
+#   # ---------------------------------
+#   # 3. FRONTEND (Angular + Nginx)
+#   # ---------------------------------
+#   frontend:
+#     image: keenusheridan/cookiegram-frontend:latest
+#     container_name: cookiegram-frontend
+#     restart: always
+#     ports:
+#       - "80:80"
+#     networks:
+#       - cookiegram-net
+
+# volumes:
+#   db_data:
+
+# networks:
+#   cookiegram-net:
+#     driver: bridge
+
+# Change for Software process management project
 services:
   # ---------------------------------
   # 1. DATABASE (MySQL)
@@ -26,6 +98,7 @@ services:
   # 2. BACKEND (Spring Boot)
   # ---------------------------------
   backend:
+    #build: ./backendSprint3Final
     image: keenusheridan/cookiegram-backend:latest 
     container_name: cookiegram-backend
     restart: always
@@ -39,26 +112,47 @@ services:
       - SPRING_DATASOURCE_USERNAME=cookieuser
       - SPRING_DATASOURCE_PASSWORD=password
       
-      # Inject Secrets from .env file
+      # Inject Secrets
       - STRIPE_API_KEY=${STRIPE_API_KEY}
       - STRIPE_PUBLIC_KEY=${STRIPE_PUBLIC_KEY}
       - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
+      - EMAIL_APP_USER=${EMAIL_APP_USER}
       - EMAIL_APP_PASSWORD=${EMAIL_APP_PASSWORD}
       
       # Allow frontend access
       - ALLOWED_ORIGINS=http://localhost,http://127.0.0.1
     networks:
       - cookiegram-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   # ---------------------------------
   # 3. FRONTEND (Angular + Nginx)
   # ---------------------------------
-  frontend:
+  frontend-staging:
+    #build: ./cookiegram-frontendSprint3
     image: keenusheridan/cookiegram-frontend:latest
-    container_name: cookiegram-frontend
+    container_name: cookiegram-staging
     restart: always
     ports:
-      - "80:80"
+      - "5000:80" # Staging Port
+    depends_on:
+      - backend
+    networks:
+      - cookiegram-net
+
+  frontend-production:
+    #build: ./cookiegram-frontendSprint3
+    image: keenusheridan/cookiegram-frontend:latest
+    container_name: cookiegram-production
+    restart: always
+    ports:
+      - "6000:80" # Production Port
+    depends_on:
+      - backend
     networks:
       - cookiegram-net
 

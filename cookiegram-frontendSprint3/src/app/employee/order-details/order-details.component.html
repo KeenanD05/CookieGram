@@ -89,7 +89,11 @@
 
       <select [(ngModel)]="newStatus" class="status-dropdown">
         <option value="">Select Status</option>
-        <option *ngFor="let s of statuses" [value]="s">
+        <option
+          *ngFor="let s of statuses"
+          [value]="s"
+          [disabled]="statuses.indexOf(s) < statuses.indexOf(order.status)"
+        >
           {{ formatStatusLabel(s) }}
         </option>
       </select>
